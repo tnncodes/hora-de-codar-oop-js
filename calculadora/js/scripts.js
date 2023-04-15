@@ -22,6 +22,32 @@ class Calculator {
     }
   }
 
+  // método de soma
+  sum(n1, n2) {
+    return parseFloat(n1) + parseFloat(n2);
+  }
+
+  // método de subtração
+  subtraction(n1, n2) {
+    return parseFloat(n1) - parseFloat(n2);
+  }
+
+  // método de multiplicação
+  multiplication(n1, n2) {
+    return parseFloat(n1) * parseFloat(n2);
+  }
+
+  // método de divisão
+  division(n1, n2) {
+    return parseFloat(n1) / parseFloat(n2);
+  }
+
+  // atualiza valores
+  refreshValues(total) {
+    this.upperValue.textContent = total;
+    this.resultValue.textContent = total;
+  }
+
   // resolve a operação
   resolution() {
     // explode uma string em um array
@@ -38,8 +64,12 @@ class Calculator {
       }
     }
 
-    this.upperValue.textContent = result;
-    this.resultValue.textContent = result;
+    if (result) {
+      calc.reset = 1;
+    }
+
+    // atualizar os totais
+    calc.refreshValues(result);
   }
 
   btnPress() {
@@ -48,6 +78,14 @@ class Calculator {
     
     // verifica se tem somente números
     const reg = new RegExp('^\\d+$');
+
+    // se precisar resetar, limpa o display
+    if (calc.reset && reg.test(input)) {
+      upperValue = '0';
+    }
+
+    // limpa a prop de reset
+    calc.reset = 0;
 
     // ativa método de limpar o display
     if (input == 'AC') {
