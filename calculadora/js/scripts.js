@@ -22,6 +22,26 @@ class Calculator {
     }
   }
 
+  // resolve a operação
+  resolution() {
+    // explode uma string em um array
+    let upperValueArray = (this.upperValue.textContent).split(" ");
+
+    // resultado da operação
+    let result = 0;
+
+    for(let i = 0; i < upperValueArray.length; i++) {
+      let actualItem = upperValueArray[i];
+
+      if (actualItem == "+") {
+        result = parseFloat(upperValueArray[i - 1]) + parseFloat(upperValueArray[i + 1]);
+      }
+    }
+
+    this.upperValue.textContent = result;
+    this.resultValue.textContent = result;
+  }
+
   btnPress() {
     let input = this.textContent;
     let upperValue = calc.upperValue.textContent;
@@ -32,6 +52,9 @@ class Calculator {
     // ativa método de limpar o display
     if (input == 'AC') {
       calc.clearValues();
+
+    }  else if (input == "=") {
+      calc.resolution();
     } else {
       // verifica se precisa adicionar ou não
       if(calc.checkLastDigit(input, upperValue, reg)) {
